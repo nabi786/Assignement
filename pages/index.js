@@ -102,7 +102,7 @@ export default function Home() {
               <Add_Button text="Add New Customer" type="add" action={openModal} />
 
               {/* customer tables */}
-              <Box className={styles.table_responsive} sx={{marginTop : "50px", border : "1px solid red"}}>
+              <Box className={styles.table_responsive} sx={{marginTop : "50px"}}>
                 <Table  data={customerData} isLoading={loading} handleEditButton={handleEditButton}/>
               </Box>
             </Box>
