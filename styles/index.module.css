@@ -72,15 +72,14 @@
 .table_responsive{
 
 
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     height: 500px;
-    width: 100%;
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
     /* padding: ; */
 }
 .table{
     /* min-width: 500px; */
-   /* width: 500px; */
+   /* width: 100%; */
   
    /* width: 1920px; */
 }
@@ -134,7 +133,11 @@
     .mainContent{
         padding: 12px 20px;
     }
-    /* .table{
+    .table{
         width: 1000px;
-    } */
+    }
+    .table_responsive{
+        width: 100vw;
+        overflow: scroll;
+    }
 }

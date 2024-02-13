@@ -4,6 +4,10 @@ import customers from './slices/CustomerAPI'
 
 export const store = configureStore({
     reducer :{
-        customer : customers
-    }
+        app : customers
+    },
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })

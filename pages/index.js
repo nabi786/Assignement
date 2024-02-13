@@ -11,7 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {useMediaQuery  } from "@mui/material"
 import Table from '../components/tables/customer';
 const inter = Inter({ subsets: ["latin"] });
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllCustomer } from '../store/slices/CustomerAPI'
 
 export default function Home() {
@@ -20,12 +20,16 @@ export default function Home() {
   const [sideOpen, setSideValue] = useState(false)
   const [isEditForm, setIsEditForm] = useState(false)
   const tablet = useMediaQuery('(max-width:1000px)');
+  const [editCustomer,setEditCustomer]= useState({})
+  const {customerData, loading} = useSelector((state) => state.app);
+  const [windowWidth, setWindowWidth] = useState("");
 
-
+  
   useEffect(() => {
     dispatch(getAllCustomer());
-  }, []);
+  }, [dispatch]);
   
+
 
 
 
@@ -42,23 +46,23 @@ export default function Home() {
 
 
   // handle edit button in table
-  const handleEditButton = ()=>{
+  const handleEditButton = (values)=>{
+    setEditCustomer(values)
     setModalOpen(true)
     setIsEditForm(true)
 }
 
 
 
-
   // tables Data
 
-  const tableHeaders = [
-    {value : "", sortable: false}, 
-    {value : "username",sortable: true},
-    {value : "CustomerName", sortable : true},
-    {value : "Email", sortable : true},
-    {value : "", sortable : false}
-  ]
+  // const tableHeaders = [
+  //   {value : "", sortable: false}, 
+  //   {value : "username",sortable: true},
+  //   {value : "CustomerName", sortable : true},
+  //   {value : "Email", sortable : true},
+  //   {value : "", sortable : false}
+  // ]
 
 
   return (
@@ -98,17 +102,15 @@ export default function Home() {
               <Add_Button text="Add New Customer" type="add" action={openModal} />
 
               {/* customer tables */}
-              <Box className={styles.table_responsive} sx={{marginTop : "50px"}}>
-                
-                <Table data={[]} isLoading={false} tableHeader={tableHeaders} handleEditButton={handleEditButton}/>
-                
+              <Box className={styles.table_responsive} sx={{marginTop : "50px", border : "1px solid red"}}>
+                <Table  data={customerData} isLoading={loading} handleEditButton={handleEditButton}/>
               </Box>
             </Box>
           </Box>
         </Box>
 
             {/* edit and update form modal */}
-        <Modal  open={modalOpen} setModalOpen={setModalOpen} isEditForm={isEditForm}/>
+        <Modal editCustomer={editCustomer}  open={modalOpen} setModalOpen={setModalOpen} isEditForm={isEditForm}/>
       </main>
     </>
   );

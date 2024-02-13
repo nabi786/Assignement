@@ -3,26 +3,30 @@ import { Box, Button } from '@mui/material'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import AlertModal from '../modals/alertModal'
 import { useState } from "react";
-
 import { CircularProgress } from "@mui/material"
 import imgPath from '../../public/uploads/1707726119536-images.jpg'
-
+import {getAllCustomer , deleteCustomer} from '../../store/slices/CustomerAPI'
+import { useDispatch,useSelector } from "react-redux";
 export default function Table(prop) {
 
 
-    console.log("props are ", prop)
+    const dispatch = useDispatch()
     const [openModal, setOpenModal] = useState(false)
-
-
     const [custID, setCustID] = useState("")
-
- 
+    const custdata= useSelector((state) => state.app);
+   
 
     const handleDeleteCustomer = async () => {
         // console.log(`I want to delete this ID `, custID)
-
-
+        dispatch(deleteCustomer(custID))
         setOpenModal(false)
+        setCustID("")
+    }
+
+
+
+    const handleSorting=(e)=>{
+        dispatch(getAllCustomer(`sort=${e}`));
     }
 
 
@@ -32,31 +36,102 @@ export default function Table(prop) {
             <Box className={style.table}>
 
                 <Box className={style.tableHeaderRow}>
-                    {
-                        prop.tableHeader?.map((item, index) => {
-                            return (
-                                <Box
-                                    key={index + 3}
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        cursor: "pointer"
-                                    }}
-                                    className={style.tableCol}>
-                                    <span key={index}>
-                                        {item.value}
-                                    </span>
-                                    <span key={index + 1} style={{ display: "flex", flexDirection: "column" }}>
-                                        {item.sortable ? <ArrowDropUpIcon /> : ""}
-                                        {/* {item.sortable? <ArrowDropDownIcon/> : ""} */}
-                                    </span>
-                                </Box>
-                            )
-                        })
+
+                    <Box
+                       
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            cursor: "pointer"
+                        }}
+                        className={style.tableCol}>
+                        <span >
+                            
+                        </span>
+                    </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            cursor: "pointer"
+                        }}
+                        className={style.tableCol}>
+                        <span >
+                        username
+                        </span>
+                        <span onClick={()=>{
+                            handleSorting("username")
+                        }
+                        } style={{ display: "flex", flexDirection: "column" }}>
+                            <ArrowDropUpIcon />
+                        </span>
+                    </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            cursor: "pointer"
+                        }}
+                        className={style.tableCol}>
+                        <span 
+                        
+                        >
+                        CustomerName
+                        </span>
+                        <span
+                        onClick={()=>{
+                            handleSorting("customer")
+                        }
+                        }
+                        style={{ display: "flex", flexDirection: "column" }}>
+                            <ArrowDropUpIcon />
+                        </span>
+                    </Box>
+                    <Box
+                       
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            cursor: "pointer"
+                        }}
+                        className={style.tableCol}>
+                        <span 
+                        
+                        >
+                            email
+                        </span>
+                        <span
+                        onClick={()=>{
+                            handleSorting("email")
+                        }
+                        }
+                        style={{ display: "flex", flexDirection: "column" }}>
+                            <ArrowDropUpIcon />
+                        </span>
+                    </Box>
+                    <Box
+                       
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            cursor: "pointer"
+                        }}
+                        className={style.tableCol}>
+                        <span >
+                            
+                        </span>
+                        
+                    </Box>
 
 
-                    }
+
+
+
                 </Box>
 
                 {/* table body /*  */}
@@ -72,12 +147,12 @@ export default function Table(prop) {
                         </Box>
                         :
                         <>
-                        {([].length == 0) ? 
-                        <Box sx={{textAlign : "center"}}>
-                            No Data Found
-                        </Box>
-                        : <>
-                                    {prop?.data?.data?.map((item, index) => {
+                            {(prop?.data?.length == 0) ?
+                                <Box sx={{ textAlign: "center" }}>
+                                    No Data Found
+                                </Box>
+                                : <>
+                                    {prop?.data?.map((item, index) => {
 
                                         return (
 
@@ -95,7 +170,9 @@ export default function Table(prop) {
                                                     {item.email}
                                                 </Box>
                                                 <Box key={index + 6} className={style.tableBodyCol}>
-                                                    <Button key={index + 7} sx={{ marginRight: "10px" }} onClick={prop?.handleEditButton} className="successButton">Edit</Button>
+                                                    <Button key={index + 7} sx={{ marginRight: "10px" }} onClick={()=>{
+                                                        prop?.handleEditButton(item)
+                                                    }} className="successButton">Edit</Button>
                                                     <Button key={index + 8} className="errorButton" onClick={() => {
                                                         setOpenModal(true)
                                                         setCustID(item._id)

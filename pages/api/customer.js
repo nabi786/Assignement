@@ -27,13 +27,14 @@ export const config = {
 const customerData = async (req, res) => {
     try {
         await dbConnect()
+        
+        
         if (req.method == "POST") {
-
-
             await runMiddleware(req, res, upload.single('file'));
-
+            
             // Now you can access req.file and req.body.
-            const { username, email } = req.body;
+            
+            console.log("req.body is ",req.body)
             const newCustomer = new customer({
                 username: req.body.username,
                 customer_name: req.body.customer_name,
@@ -41,12 +42,9 @@ const customerData = async (req, res) => {
                 image: req.file.filename,
             })
 
-
             // console.log(req.file)
             await newCustomer.save()
-
-
-            res.status(200).json({ success: true, msg: "user created successfully" });
+            res.status(200).json({ success: true, msg: "user created successfully",data:newCustomer});
             // Perform your logic here, such as saving the file info to a database.
 
         } else if (req.method == "GET") {
@@ -67,32 +65,37 @@ const customerData = async (req, res) => {
 
 
             await customer.findOneAndDelete({ _id: req.query.id })
-            // console.log("query are ", req.query)
-            res.status(200).json({ success: true, data: "customer deleted successfully" });
-        } else if (req.method == "PATCH") {
 
+            let custoomers = await customer.find()
+            // console.log("query are ", req.query)
+            res.status(200).json({ success: true, data: custoomers,msg : "customer deleted successfully" });
+        } else if (req.method == "PATCH") {
+            
+            
+            await runMiddleware(req, res, upload.single('file'));
+            
+            
             if (!req.body.id) {
 
-                res.status(404).json({ success: falses, msg: "document id required" });
+                res.status(404).json({ success: false ,data:[], msg: "document id required" });
             } else {
 
                 let currentCustomer = await customer.findOne({ _id: req.body.id })
                 if (currentCustomer) {
-                    await runMiddleware(req, res, upload.single('file'));
-
-                    await customer.findOneAndUpdate({ _id: req.body.id }, {
+                    let updatedCustomer = await customer.findOneAndUpdate({ _id: req.body.id }, {
                         username: req.body.username,
                         customer_name: req.body.customer_name,
                         email: req.body.email,
                         image: req.file ? req.file.filename : currentCustomer.image,
                     })
-                    res.status(200).json({ success: true, msg: "document updated successfully" });
+                   let allCustomers =  await customer.find()
+                    res.status(200).json({ success: true, msg: "document updated successfully", data:allCustomers});
                 }
             }
         }
     } catch (error) {
-        console.log("err ", error)
-        res.status(500).json({ sucess: false, error: error.message });
+        // console.log("err ", error)
+        res.status(500).json({ sucess: false, msg: error.message });
     }
 };
 

@@ -11,8 +11,10 @@ import AddCustomerForm from '@/components/forms/addCustomer'
 
 
 export default function TransitionsModal(prop) {
-    const handleClose = () => prop.setModalOpen(false);
-
+    const handleClose = () => {
+        prop.setModalOpen(false);
+        
+    }
     const style = {
         position: 'absolute',
         top: '50%',
@@ -57,9 +59,8 @@ export default function TransitionsModal(prop) {
 
                         <Box className={styles.modalContent}>
                             {/* form is here */}
-                            <AddCustomerForm  buttonValue={prop.isEditForm==true? "Edit Customers": "Add Customers"}/>
+                            <AddCustomerForm editCustomer={prop.editCustomer} isEditForm={prop.isEditForm}  setModalOpen={prop.setModalOpen}  buttonValue={prop.isEditForm==true? "Edit Customers": "Add Customers"}/>
                             {/* form end here */}
-
                         </Box>
 
                     </Box>
