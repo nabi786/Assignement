@@ -7,6 +7,7 @@ import { CircularProgress } from "@mui/material"
 import imgPath from '../../public/uploads/1707726119536-images.jpg'
 import {getAllCustomer , deleteCustomer} from '../../store/slices/CustomerAPI'
 import { useDispatch,useSelector } from "react-redux";
+import Image from '../../public/uploads/1707726119536-images.jpg'
 export default function Table(prop) {
 
 
@@ -154,13 +155,13 @@ export default function Table(prop) {
                                 : <>
                                     {prop?.data?.map((item, index) => {
                                         
-                                        const imgSrc = require(`../../public/uploads/${item.image}`).default;
+            
                                         
                                         return (
 
                                             <Box key={index + 1} className={style.tableBodyRow}>
                                                 <Box key={index + 2} className={style.tableCol}>
-                                                    <img style={{ width: "60px", borderRadius: "10px" }} src={imgSrc.src} />
+                                                <img style={{ width: "60px", borderRadius: "10px" }} src={Image.src} />  
                                                 </Box>
                                                 <Box key={index + 3} className={style.tableBodyCol}>
                                                     {item.username}
