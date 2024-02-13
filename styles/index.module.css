@@ -1,0 +1,140 @@
+/* main outer box */
+.mainOuterBox{
+    display: flex;
+}
+
+.contentBox{
+    flex-grow: 1;
+
+}
+
+.pageHeader{
+    padding: 12px 50px;
+    background-color: white;
+    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.03);
+    display: flex;
+}
+
+.pageHeader h1{
+    padding: 0px;
+    margin: 0px;
+    font-weight: 600;
+}
+
+.mainContent{
+    /* margin-top: 30px; */
+    padding: 12px 50px; 
+    max-width: 1920px;
+    min-width: 320px;
+    margin: 30px auto 0px auto;
+    /* overflow-x: auto; */
+}
+
+
+.addButtonStyle {
+    background-image: var(--main_buttonsColors);
+    border-radius: 5px;
+    padding: 12px 20px;
+    color: white;
+    font-weight: 200;
+}
+
+
+
+
+/* Modal Header */
+.modalHeader{
+    background-image: var(--main_buttonsColors);
+    padding: 12px;
+    color: white;
+    font-weight: 700;
+}
+.modalHeader h2{
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+}
+
+
+.formStyle{
+    padding: 25px;
+}
+
+.textColor{
+    color : var(--first_green_color)
+}
+
+
+
+
+
+/* table design start */
+.table_responsive{
+
+
+    overflow-x: hidden;
+    height: 500px;
+    width: 100%;
+    overflow-x: scroll;
+    /* padding: ; */
+}
+.table{
+    /* min-width: 500px; */
+   /* width: 500px; */
+  
+   /* width: 1920px; */
+}
+
+.tableHeaderRow{
+    background-color: #C5E3D5;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0px;
+    border-radius: 5px;
+}
+
+.tableCol{
+    color : var(--first_green_color);
+   
+    width: 190px;
+    font-weight: 500;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.tableBody{
+    /* margin-top: 30px; */
+}
+
+.tableBodyRow{
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    border-radius: 5px;
+    margin-top: 30px;
+}
+.tableBodyCol{
+   
+    width: 190px;
+    font-weight: 400;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 0.7rem;
+    align-items: center;
+}
+
+/* end table design */
+
+
+@media(max-width : 1000px){
+    .pageHeader{
+        padding: 12px 20px;
+    }
+    .mainContent{
+        padding: 12px 20px;
+    }
+    /* .table{
+        width: 1000px;
+    } */
+}
