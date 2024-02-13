@@ -70,12 +70,11 @@
 
 /* table design start */
 .table_responsive{
-
-
     /* overflow-x: hidden; */
     height: 500px;
     /* overflow-x: scroll; */
     /* padding: ; */
+    overflow: scroll;
 }
 .table{
     /* min-width: 500px; */

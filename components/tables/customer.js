@@ -153,12 +153,14 @@ export default function Table(prop) {
                                 </Box>
                                 : <>
                                     {prop?.data?.map((item, index) => {
-
+                                        
+                                        const imgSrc = require(`../../public/uploads/${item.image}`).default;
+                                        
                                         return (
 
                                             <Box key={index + 1} className={style.tableBodyRow}>
                                                 <Box key={index + 2} className={style.tableCol}>
-                                                    <img style={{ width: "60px", borderRadius: "10px" }} src={`/_next/static/media/1707726119536-images.2e487737.jpg`} />
+                                                    <img style={{ width: "60px", borderRadius: "10px" }} src={imgSrc.src} />
                                                 </Box>
                                                 <Box key={index + 3} className={style.tableBodyCol}>
                                                     {item.username}

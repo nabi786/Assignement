@@ -53,18 +53,6 @@ export default function Home() {
 }
 
 
-
-  // tables Data
-
-  // const tableHeaders = [
-  //   {value : "", sortable: false}, 
-  //   {value : "username",sortable: true},
-  //   {value : "CustomerName", sortable : true},
-  //   {value : "Email", sortable : true},
-  //   {value : "", sortable : false}
-  // ]
-
-
   return (
     <>
       <Head>
